@@ -8,7 +8,7 @@ import (
 type Moe struct {
 	middlewareList *list.List
 
-	routes map[string]map[string]Controller
+	routes map[string]map[string]Poi
 }
 
 // NewApp returns a new Moe instance
