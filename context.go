@@ -34,6 +34,19 @@ func newContext(w http.ResponseWriter, r *http.Request) *Context {
 	}
 }
 
+// // Set is used to store a new key/value pair exclusively for this context.
+// // use golang context
+// func (c *Context) Set(key, value interface{}) *Context {
+// 	c.Request.WithContext(context.WithValue(c.Request.Context(), key, value))
+// 	return c
+// }
+
+// // Get returns the value for the given key
+// // use golang context
+// func (c *Context) Get(key interface{}) interface{} {
+// 	return c.Request.Context().Value(key)
+// }
+
 // setStatus is a wrapper for c.Writer.WriteHeader
 // The provided code must be a valid HTTP 1xx-5xx status code
 func (c *Context) Status(code int) *Context {
@@ -46,6 +59,12 @@ func (c *Context) ContentType(value string) *Context {
 	c.writer.Header().Set("Content-Type", value)
 	return c
 }
+
+// // Write is an alias for c.res.Write(body)
+// func (c *Context) Write(body []byte) *Context {
+// 	c.writer.Write(body)
+// 	return c
+// }
 
 // JSON convert some value to JSON, and write them to response
 func (c *Context) Send(code int, obj interface{}) *Context {
@@ -84,21 +103,21 @@ type Error struct {
 func (c *Context) Error(code int, msg string) *Context {
 	c.Status(code)
 	if err := json.NewEncoder(c.writer).Encode(&Error{msg}); err != nil {
-		http.Error(c.Writer, msg, code)
+		http.Error(c.writer, msg, code)
 	}
 	return c
 }
 
-// Redirect is a wrapper for http.Redirect
-func (c *Context) Redirect(code int, url string) *Context {
-	http.Redirect(c.Writer, c.Request, url, code)
-	return c
-}
+// // Redirect is a wrapper for http.Redirect
+// func (c *Context) Redirect(code int, url string) *Context {
+// 	http.Redirect(c.writer, c.request, url, code)
+// 	return c
+// }
 
 // Next is
 func (c *Context) Next() *Context {
 	ele := c.middlewareList.Remove(c.middlewareList.Front())
-	if f, ok := ele.(Controller); ok {
+	if f, ok := ele.(Poi); ok {
 		f(c)
 	}
 	return c

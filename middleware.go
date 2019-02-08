@@ -4,7 +4,7 @@ import (
 	"container/list"
 )
 
-// Use appends a Controller func to the HandlerFunc chain.
+// Use appends a Poi func to the HandlerFunc chain.
 // func (m *Moe) Use(mws ...Middleware) *Moe {
 // 	for _, mw := range mws {
 // 		m.mws = append(m.mws, mw)
@@ -17,7 +17,7 @@ func newMiddlewareList() *list.List {
 }
 
 // Use is
-func (m *Moe) Use(f Controller) *Moe {
+func (m *Moe) Use(f Poi) *Moe {
 	m.middlewareList.PushBack(f)
 	return m
 }
