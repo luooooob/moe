@@ -16,10 +16,4 @@ Explain how to run the automated tests for this system
 
 ## License
 
-[MIT](LICENSE.md)
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+[MIT](LICENSE)

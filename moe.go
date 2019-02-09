@@ -1,18 +1,15 @@
 package moe
 
-import (
-	"container/list"
-)
+import "container/list"
 
 // Moe is justice!
 type Moe struct {
+	routes         map[string]map[string]Poi
 	middlewareList *list.List
-
-	routes map[string]map[string]Poi
 }
 
-// NewApp returns a new Moe instance
-func NewApp() *Moe {
+// NewMoe returns a new Moe instance
+func NewMoe() *Moe {
 	return &Moe{
 		routes:         newRoutes(),
 		middlewareList: newMiddlewareList(),
@@ -24,3 +21,6 @@ func NewApp() *Moe {
 // 	http.ListenAndServe(addr, m.mux)
 // 	return m
 // }
+
+// H is a shortcut for map[string]interface{}
+type H map[string]interface{}

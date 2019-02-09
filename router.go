@@ -32,7 +32,7 @@ func (m *Moe) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		c.middlewareList = &middlewareList
 		c.Next()
 	} else {
-		c.Error(http.StatusNotFound, null)
+		// c.Error(http.StatusNotFound, null)
 	}
 }
 
