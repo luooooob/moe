@@ -14,11 +14,11 @@
 
 ## todo
 
-## todo
-
 1. 文档, 即[readme.md](readme.md)和[readme_zh.md](readme_zh.md)
 
 2. 路由自己写, 只匹配完全相同的, 不做模糊匹配, 应该不是很难
+
+3. 数据库结合?
 
 3. c.Required()功能, 参数种类需要提前验证减少麻烦
 
@@ -30,6 +30,9 @@
 
 7. 测试, 写的越多, bug越多, 能少写就少写
 
+8. websocket
+
+
 其他
 1. 开发缘由,需要一篇博客解释,从node的koa到gorilla/mux, gin.~~并不是简单的把别人的巧克力融化,倒进自己模子里~~
 
@@ -38,4 +41,50 @@ Controller像是当年一大波宣扬自己是MVC模式的框架搞出来的东�
 我自己瞎起的话就叫Poi好了（逃. 待定
 
 3. 思考,一个轻量化的框架用的时候不能直接写函数要包成接口的实现是不是太麻烦了, 要不要搞控制反转这一套
+
+## api进度
+
+### request
+
+1. request.Method
+2. request.Header
+3. request.Get  // get header
+4. request.Length
+5. request.URL
+6. request.Path
+7. request.Origin
+8. request.IP  // Request remote address. Supports X-Forwarded-For when app.proxy is true.
+9. request.Type
+10. request.query(key)  //
+11. request.fresh  // Check if a request cache is "fresh",
+12. request.secure  // if the protocol is https
+13. request.Parse(v)  //  parse request body
+14. request.idempotent  // if the request is idempotent
+
+###response
+
+1. response.Status()
+2. response.Get()
+3. response.Set()
+4. response.Del()
+5. response.Length()
+6. response.Body()
+7. response.Type()
+8. response.ETag()
+9. response.Vary(field)
+10. response.LastModified
+11. response.FlushHeaders()
+12. response.Redirect(url)  // http.redirect
+
+###context:
+
+1. context.request
+2. context.response
+
+3. context.State  // mount something here
+4. context.State.Get(key)
+5. context.State.Set(key, value)
+
+6. alias
+
 

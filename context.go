@@ -18,8 +18,12 @@ type Context struct {
 
 	middlewareList *list.List
 
+	Request  Request
+	Response Response
+
 	Method        string
 	Path          string
+	Header        http.Header
 	UserAgent     string
 	Authorization string
 }
@@ -32,20 +36,30 @@ func newContext(w http.ResponseWriter, r *http.Request) *Context {
 
 		Method:        r.Method,
 		Path:          r.URL.Path,
+		Header:        r.Header,
 		UserAgent:     r.Header.Get("User-Agent"),
 		Authorization: r.Header.Get("Authorization"),
 	}
 }
 
-// Status is a wrapper for c.Writer.WriteHeader
-// The provided code must be a valid HTTP 1xx-5xx status code
-func (c *Context) Status(code int) {
-	c.w.WriteHeader(code)
+// setHeader is
+func (c *Context) setHeader(key, value string) {
+	c.w.Header().Set(key, value)
 }
 
-// ContentType is a wrapper for c.Writer.Header().Set("Content-Type", value)
-func (c *Context) ContentType(value string) {
-	c.w.Header().Set("Content-Type", value)
+func (c *Context) setAuthorization(value string) {
+	c.setHeader("Authorization", value)
+}
+
+// setContentType is a wrapper for c.Writer.Header().Set("Content-Type", value)
+func (c *Context) setContentType(value string) {
+	c.setHeader("Content-Type", value)
+}
+
+// setStatus is a wrapper for c.Writer.WriteHeader
+// The provided code must be a valid HTTP 1xx-5xx status code
+func (c *Context) setStatus(code int) {
+	c.w.WriteHeader(code)
 }
 
 // Send convert some value to JSON, and write them to response
@@ -66,11 +80,11 @@ func (c *Context) write(b []byte) error {
 	return nil
 }
 
-// // Redirect is a wrapper for http.Redirect
-// func (c *Context) Redirect(code int, url string) *Context {
-// 	http.Redirect(c.writer, c.request, url, code)
-// 	return c
-// }
+// Redirect is a wrapper for http.Redirect
+func (c *Context) Redirect(code int, url string) *Context {
+	http.Redirect(c.w, c.r, url, code)
+	return c
+}
 
 // Next is
 func (c *Context) Next() *Context {

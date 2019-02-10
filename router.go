@@ -4,8 +4,6 @@ import (
 	"net/http"
 )
 
-const null = ""
-
 // Poi is the function can be registered
 // note: Poi and HandleFunc are different
 type Poi func(*Context)
@@ -19,9 +17,8 @@ func newRoutes() routes {
 
 // Match registers the f for the given method
 // and pattern with Composed Middlewares
-func (m *Moe) register(method, pattern string, f Poi) *Moe {
-	m.routes[method][pattern] = f
-	return m
+func (m *Moe) register(method, pattern string, p Poi) {
+	m.routes[method][pattern] = p
 }
 
 func (m *Moe) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -40,22 +37,22 @@ func (m *Moe) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 // 	return
 // }
 
-// // GET is a shortcut for Handle("GET", pattern, f)
-// func (m *Moe) GET(pattern string, f Poi) *Moe {
-// 	return m.register("GET", pattern, f)
-// }
+// GET is a shortcut for Handle("GET", pattern, f)
+func (m *Moe) GET(pattern string, p Poi) {
+	m.register("GET", pattern, p)
+}
 
-// // POST is a shortcut for Handle("POST", pattern, f)
-// func (m *Moe) POST(pattern string, f Poi) *Moe {
-// 	return m.register("POST", pattern, f)
-// }
+// POST is a shortcut for Handle("POST", pattern, p)
+func (m *Moe) POST(pattern string, p Poi) {
+	m.register("POST", pattern, p)
+}
 
-// // PUT is a shortcut for Handle("PUT", pattern, f)
-// func (m *Moe) PUT(pattern string, f Poi) *Moe {
-// 	return m.register("PUT", pattern, f)
-// }
+// PUT is a shortcut for Handle("PUT", pattern, p)
+func (m *Moe) PUT(pattern string, p Poi) {
+	m.register("PUT", pattern, p)
+}
 
-// // DELETE is a shortcut for Handle("DELETE", pattern, f)
-// func (m *Moe) DELETE(pattern string, f Poi) *Moe {
-// 	return m.register("DELETE", pattern, f)
-// }
+// DELETE is a shortcut for Handle("DELETE", pattern, p)
+func (m *Moe) DELETE(pattern string, p Poi) {
+	m.register("DELETE", pattern, p)
+}
