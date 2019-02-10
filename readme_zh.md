@@ -61,7 +61,7 @@ Controller像是当年一大波宣扬自己是MVC模式的框架搞出来的东�
 13. request.Parse(v)  //  parse request body
 14. request.idempotent  // if the request is idempotent
 
-###response
+### response
 
 1. response.Status()
 2. response.Get()
@@ -76,7 +76,7 @@ Controller像是当年一大波宣扬自己是MVC模式的框架搞出来的东�
 11. response.FlushHeaders()
 12. response.Redirect(url)  // http.redirect
 
-###context:
+### context:
 
 1. context.request
 2. context.response
