@@ -6,24 +6,10 @@ import (
 	"strings"
 )
 
-// // Request is
-// type Request struct {
-// 	http.Request
-// 	Method     string
-// 	Header     http.Header
-// 	URL        *url.URL
-// 	Path       string
-// 	Origin     string
-// 	IP         string
-// 	Type       string
-// 	Fresh      bool
-// 	Secure     bool
-// 	idempotent bool
-// }
-
 // Request is
 type Request struct {
 	http.Request
+
 	Path       string
 	Origin     string
 	IP         string
