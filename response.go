@@ -21,7 +21,7 @@ import (
 type Response struct {
 	Status int
 	body   []byte
-	Header Header
+	Header http.Header
 
 	LastModified string
 }
@@ -32,17 +32,17 @@ func newResponse(w http.ResponseWriter) *Response {
 
 // Type is
 func (res *Response) Type(value string) {
-	res.Set("Content-Type", value)
+	res.Header.Set("Content-Type", value)
 }
 
 // ETag is
 func (res *Response) ETag(value string) {
-	res.Set("ETag", value)
+	res.Header.Set("ETag", value)
 }
 
 // Vary is
 func (res *Response) Vary(field string) {
-	res.Set("Vary", field)
+	res.Header.Set("Vary", field)
 }
 
 // Body is

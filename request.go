@@ -7,14 +7,12 @@ import (
 	"strings"
 )
 
-// Request is
-type Request struct {
-	http.Request
-}
+// Request is derived from http.Request and adding some methods
+type Request http.Request
 
-// newContext returns a new Context instance for the given res and req
+// newContext returns a new Request instance with the given *http.Request
 func newRequest(r *http.Request) *Request {
-	return &Request{Request: *r}
+	return (*Request)(r)
 }
 
 // Path returns request path
@@ -22,24 +20,29 @@ func (req *Request) Path() string {
 	return req.URL.Path
 }
 
-// Origin returns the Origin header
-func (req *Request) Origin() string {
-	return req.Header.Get("Origin")
-}
-
 // Type returns the Content-Type header
 func (req *Request) Type(a *url.URL) string {
 	return req.Header.Get("Content-Type")
 }
 
-// Bind binds the request body to the given pointer
+// Origin returns the Origin header
+func (req *Request) Origin() string {
+	return req.Header.Get("Origin")
+}
+
+// Bind binds the request body with the given pointer
 func (req *Request) Bind(v interface{}) error {
 	return json.NewDecoder(req.Body).Decode(v)
 }
 
-// Query is todo
-func (req *Request) Query(key string) []string {
-	return []string{""}
+// Query returns the first value with the given key in querystring
+func (req *Request) Query(key string) string {
+	return req.URL.Query().Get(key)
+}
+
+// QueryAll is todo
+func (req *Request) QueryAll(key string) []string {
+	return req.URL.Query()[key]
 }
 
 // IP is request remote address. Supports X-Forwarded-For if exists
@@ -50,11 +53,6 @@ func (req *Request) IP() string {
 		return IPs[0]
 	}
 	return req.RemoteAddr
-}
-
-// Secure is
-func (req *Request) Secure() bool {
-	return req.TLS != nil
 }
 
 // Fresh is  todo
