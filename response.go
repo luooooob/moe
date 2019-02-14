@@ -52,14 +52,6 @@ func (res *Response) Body(data interface{}) error {
 	if err != nil {
 		return err
 	}
-	res.body = Body
-	return nil
-}
-
-func (res *Response) write(bytes []byte) error {
-	_, err := res.w.Write(bytes)
-	if err != nil {
-		panic(err)
-	}
+	res.body = bytes
 	return nil
 }

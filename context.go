@@ -1,5 +1,7 @@
 package moe
 
+import "net/http"
+
 const (
 	jsonEncodeError = "JSON Encode Error"
 	jsonContentType = "application/json"
@@ -9,7 +11,7 @@ const (
 type Context struct {
 	// middlewareList *list.List
 
-	Request  *Request
+	Request  *http.Request
 	Response *Response
 }
 
@@ -79,3 +81,11 @@ type Context struct {
 // 	}
 // 	return c
 // }
+
+func (c *Context) write(w http.ResponseWriter, bytes []byte) error {
+	_, err := w.Write(bytes)
+	if err != nil {
+		panic(err)
+	}
+	return nil
+}
