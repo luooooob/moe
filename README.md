@@ -1,11 +1,13 @@
 # Moe
 
-[![GoDoc](https://godoc.org/github.com/luob/moe?status.svg&style=flat)](https://godoc.org/github.com/luob/moe)
-[![GoReportCard](https://goreportcard.com/badge/github.com/luob/moe)](https://goreportcard.com/report/github.com/luob/moe)
-![](https://img.shields.io/github/languages/code-size/luob/moe.svg?style=flat)
-![](https://img.shields.io/github/last-commit/luob/moe.svg?style=flat)
-![](https://img.shields.io/github/license/luob/moe.svg?style=flat)
-![](https://img.shields.io/github/last-commit/luob/moe.svg?style=flat)
+[![GoDoc](https://godoc.org/github.com/luob/moe?status.svg)](https://godoc.org/github.com/luob/moe)
+[![API Reference](https://godoc.org/github.com/luob/moe?status.svg)](https://godoc.org/github.com/luob/moe)
+![](https://godoc.org/github.com/luob/moe?status.svg)(https://godoc.org/github.com/luob/moe)
+
+![](https://img.shields.io/github/languages/code-size/luob/moe.svg)
+![](https://img.shields.io/github/last-commit/luob/moe.svg)
+![](https://img.shields.io/github/license/luob/moe.svg?style=flat)(LISENSE)
+
 
 An ultra-lightweight, dependency-free api development framework written in [Go](https://github.com/golang/go)
 
