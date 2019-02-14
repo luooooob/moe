@@ -52,7 +52,8 @@ func (res *Response) Body(data interface{}) error {
 	if err != nil {
 		return err
 	}
-	return res.write(bytes)
+	res.body = Body
+	return nil
 }
 
 func (res *Response) write(bytes []byte) error {
