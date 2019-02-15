@@ -2,90 +2,40 @@ package moe
 
 import "net/http"
 
-const (
-	jsonEncodeError = "JSON Encode Error"
-	jsonContentType = "application/json"
-)
-
 // Context is
 type Context struct {
 	// middlewareList *list.List
 
-	Request  *http.Request
+	Request  *Request
 	Response *Response
 }
 
-// // // newContext returns a new Context instance for the given res and req
-// // func newContext(w http.ResponseWriter, r *http.Request) *Context {
-// // 	return &Context{
-// // 		w: w,
-// // 		r: r,
+// newContext returns a new Context instance for the given res and req
+func newContext(w http.ResponseWriter, r *http.Request) *Context {
+	return &Context{
+		Request:  newRequest(r),
+		Response: newResponse(w),
+	}
+}
 
-// // 		Method:        r.Method,
-// // 		Path:          r.URL.Path,
-// // 		Header:        r.Header,
-// // 		UserAgent:     r.Header.Get("User-Agent"),
-// // 		Authorization: r.Header.Get("Authorization"),
-// // 	}
-// // }
-
-// // setHeader is
-// func (c *Context) Header(key, value string) {
-// 	c.w.Header().Set(key, value)
-// }
-
-// func (c *Context) Authorization(value string) {
-// 	c.setHeader("Authorization", value)
-// }
-
-// // setContentType is a wrapper for c.Writer.Header().Set("Content-Type", value)
-// func (c *Context) setContentType(value string) {
-// 	c.setHeader("Content-Type", value)
-// }
-
-// // setStatus is a wrapper for c.Writer.WriteHeader
-// // The provided code must be a valid HTTP 1xx-5xx status code
-// func (c *Context) setStatus(code int) {
-// 	c.w.WriteHeader(code)
-// }
-
-// // Send convert some value to JSON, and write them to response
-// func (c *Context) Send(value interface{}) error {
-// 	// c.ContentType("application/json")
-// 	jsonBytes, err := json.Marshal(value)
-// 	if err != nil {
-// 		return err
-// 	}
-// 	return c.write(jsonBytes)
-// }
-
-// func (c *Context) write(b []byte) error {
-// 	_, err := c.w.Write(b)
-// 	if err != nil {
-// 		panic(err)
-// 	}
-// 	return nil
-// }
-
-// // Redirect is a wrapper for http.Redirect
-// func (c *Context) Redirect(code int, url string) *Context {
-// 	http.Redirect(c.w, c.r, url, code)
-// 	return c
-// }
-
-// // Next is
-// func (c *Context) Next() *Context {
-// 	ele := c.middlewareList.Remove(c.middlewareList.Front())
-// 	if f, ok := ele.(Poi); ok {
-// 		f(c)
-// 	}
-// 	return c
-// }
-
-func (c *Context) write(w http.ResponseWriter, bytes []byte) error {
-	_, err := w.Write(bytes)
+// writeResponse is
+func (c *Context) writeResponse(w http.ResponseWriter) error {
+	_, err := w.Write(c.Response.body)
 	if err != nil {
 		panic(err)
 	}
 	return nil
+}
+
+// writeBody is
+func (c *Context) writeBody(w http.ResponseWriter) error {
+	_, err := w.Write(c.Response.body)
+	if err != nil {
+		panic(err)
+	}
+	return nil
+}
+
+func (c *Context) writeHeader(w http.ResponseWriter) {
+
 }

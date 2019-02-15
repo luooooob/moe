@@ -30,23 +30,8 @@ func newResponse(w http.ResponseWriter) *Response {
 	return &Response{}
 }
 
-// Type is
-func (res *Response) Type(value string) {
-	res.Header.Set("Content-Type", value)
-}
-
-// ETag is
-func (res *Response) ETag(value string) {
-	res.Header.Set("ETag", value)
-}
-
-// Vary is
-func (res *Response) Vary(field string) {
-	res.Header.Set("Vary", field)
-}
-
-// Body is
-func (res *Response) Body(data interface{}) error {
+// Send is
+func (res *Response) Send(data interface{}) error {
 	// c.ContentType("application/json")
 	bytes, err := json.Marshal(data)
 	if err != nil {
