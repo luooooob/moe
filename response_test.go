@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestResponse_Body(t *testing.T) {
+func TestResponse_Send(t *testing.T) {
 	type fields struct {
 		Status       int
 		body         []byte
@@ -31,8 +31,8 @@ func TestResponse_Body(t *testing.T) {
 				Header:       tt.fields.Header,
 				LastModified: tt.fields.LastModified,
 			}
-			if err := res.Body(tt.args.data); (err != nil) != tt.wantErr {
-				t.Errorf("Response.Body() error = %v, wantErr %v", err, tt.wantErr)
+			if err := res.Send(tt.args.data); (err != nil) != tt.wantErr {
+				t.Errorf("Response.Send() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}

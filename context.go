@@ -37,5 +37,5 @@ func (c *Context) writeBody(w http.ResponseWriter) error {
 }
 
 func (c *Context) writeHeader(w http.ResponseWriter) {
-
+	w.ResponseWriter
 }
