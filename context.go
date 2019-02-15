@@ -27,15 +27,15 @@ func (c *Context) writeResponse(w http.ResponseWriter) error {
 	return nil
 }
 
-// writeBody is
-func (c *Context) writeBody(w http.ResponseWriter) error {
-	_, err := w.Write(c.Response.body)
-	if err != nil {
-		panic(err)
-	}
-	return nil
-}
+// // writeBody is
+// func (c *Context) writeBody(w http.ResponseWriter) error {
+// 	_, err := w.Write(c.Response.body)
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	return nil
+// }
 
-func (c *Context) writeHeader(w http.ResponseWriter) {
-	w.ResponseWriter
-}
+// func (c *Context) writeHeader(w http.ResponseWriter) {
+// 	w.ResponseWriter.wr
+// }
