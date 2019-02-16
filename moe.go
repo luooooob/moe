@@ -1,24 +1,49 @@
-package moe
+package minus
 
-// // Moe is justice!
-// type Moe struct {
-// 	routes         map[string]map[string]Poi
-// 	middlewareList *list.List
-// }
+import (
+	"net/http"
+)
 
-// // NewMoe returns a new Moe instance
-// func NewMoe() *Moe {
-// 	return &Moe{
-// 		routes:         newRoutes(),
-// 		middlewareList: newMiddlewareList(),
-// 	}
-// }
+// Adapter is
+type Adapter func(http.Handler) http.Handler
 
-// // // Listen is a wrapper for http.ListenAndServe
-// // func (m *Moe) Listen(addr string) *Moe {
-// // 	http.ListenAndServe(addr, m.mux)
-// // 	return m
-// // }
+// App is
+type App struct {
+	handler http.Handler
+}
 
-// // H is a shortcut for map[string]interface{}
-// type H map[string]interface{}
+// MiddlewareAdapter is
+type MiddlewareAdapter struct {
+	MiddlewareFunc http.HandlerFunc
+}
+
+// ServHTTP is
+func (m *MiddlewareAdapter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	m.MiddlewareFunc(w, r)
+}
+
+// NewApp returns a new Moe object
+func NewApp() *App {
+	return &App{}
+}
+
+// ServeHTTP is
+func (a *App) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	a.handler.ServeHTTP(w, r)
+}
+
+// Use is
+func (a *App) Use(func(http.ResponseWriter, *http.Request, http.HandlerFunc)) {
+	Adapter := &MiddlewareAdapter{}
+	Adapter.MiddlewareFunc = func(http.ResponseWriter, *http.Request) {
+
+	}
+	return
+}
+
+func example() {
+	a := NewApp()
+	a.Use(func(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
+		next(w, r)
+	})
+}

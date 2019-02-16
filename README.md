@@ -14,9 +14,14 @@ An ultra-lightweight, dependency-free api development framework written in [Go](
 
 ## Install
 
-## Hello World!
-
 ## Getting start
+
+```golang
+	err := http.ListenAndServe(addr, m)
+	if err != nil {
+		panic(err)
+    }
+```
 
 ## Contributing
 
