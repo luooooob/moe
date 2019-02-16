@@ -2,42 +2,36 @@ package minus
 
 import (
 	"net/http"
-	"path"
 )
 
 // App is
 type App struct {
-	prefix      string
-	middlewares []middleware
-	router      Router
+	prefix         string
+	routes         Routes
+	middlewareList MiddlewareList
 }
-
-type routerMap map[string]map[string]http.HandlerFunc
-
-type middleware func(value interface{}) http.HandlerFunc
 
 // newApp make and return a App
 func newApp(prefix string) *App {
 	return &App{
-		prefix:      prefix,
-		middlewares: make([]middleware, 0),
-		routeMap:    newRouter()
+		prefix:         prefix,
+		routes:         newRoutes(),
+		middlewareList: newMiddlewareList(),
 	}
 }
 
 // Register registers the http.HandlerFunc for the given method and pattern
-func (router *App) Register(method, pattern string, c http.HandlerFunc) *App {
-	pattern = path.Join(r.prefix, pattern)
-	r.routeMap[method][pattern] = c
-	return r
+func (a *App) Register(method, pattern string, f http.HandlerFunc) *App {
+	a.routes.Set(method, pattern, f)
+	return a
 }
 
 // Use is
-func (router *App) Use(m middleware) *App {
-	r.middlewares = append(r.middlewares, m)
-	return r
+func (a *App) Use(m middleware) *App {
+	a.middlewareList.Add(m)
+	return a
 }
 
-func (router *App) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (a *App) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 }
