@@ -1,14 +1,14 @@
-# Moe
+# Minus
 
 一个超轻量无依赖的API开发框架
 
-[API参考](https://godoc.org/github.com/luob5/moe)
+[API参考](https://godoc.org/github.com/luob/moe)
 
 ## 起步
 
 ## 用法
 
-更多api: [https://godoc.org/github.com/luob5/moe](https://godoc.org/github.com/luob5/moe)
+更多api: [https://godoc.org/github.com/luob/moe](https://godoc.org/github.com/luob/moe)
 
 ## 运行测试
 

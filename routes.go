@@ -1,4 +1,4 @@
-package minus
+package moe
 
 import "net/http"
 
@@ -8,18 +8,24 @@ type Routes interface {
 	Get(string, string) http.HandlerFunc
 }
 
-type defaultRoutes map[string]map[string]http.HandlerFunc
+type defaultRoutes struct {
+	routemap routemap
+}
 
-func newRoutes() defaultRoutes {
-	return make(defaultRoutes)
+type routemap map[string]map[string]http.HandlerFunc
+
+func newRoutes() *defaultRoutes {
+	return &defaultRoutes{
+		routemap: make(routemap),
+	}
 }
 
 // Set is
 func (r defaultRoutes) Set(method, pattern string, f http.HandlerFunc) {
-	r[method][pattern] = f
+	r.routemap[method][pattern] = f
 }
 
 // Get is
 func (r defaultRoutes) Get(method, pattern string) http.HandlerFunc {
-	return r[method][pattern]
+	return r.routemap[method][pattern]
 }
