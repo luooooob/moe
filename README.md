@@ -12,6 +12,8 @@ An ultra-lightweight, dependency-free api development framework written in [Go](
 [中文文档](readme_zh.md)
 
 
+to be continue
+
 ## Install
 
 ## Getting start
